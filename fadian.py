@@ -10,7 +10,7 @@ def makeText(source, obj, num=100):
         currentText = "".join(tmpList)
     return currentText.format(name=obj)
 def main():
-    f=open("fadian.json")
+    f=open("fadian.json",encoding='UTF-8')
     source = json.load(f)
     if args.arguments!=None:
         print(makeText(source, args.arguments[0], args.arguments[1]))
