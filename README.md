@@ -37,7 +37,7 @@ python fadian.py -o 一刀斩
 
 ### 嘉然今天吃什么
 ```shell
-xxJinTianChiShenMe.py [-h] [-a ARGUMENTS]
+python xxJinTianChiShenMe.py [-h] [-a ARGUMENTS]
 ```
 
 - `-h` 作用同上。
