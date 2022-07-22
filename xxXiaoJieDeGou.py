@@ -26,7 +26,7 @@ def main():
         obj = input('请输入发癫对象: ')
         print(text.format(name=obj))
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='XX小姐的狗')
     parser.add_argument('-a', '--arguments', nargs=1, help='使用参数而不是运行时提供')
     args = parser.parse_args()
     main()
