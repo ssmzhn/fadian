@@ -2,32 +2,37 @@ import json
 import random
 import argparse
 
-def makeText(source, obj, num=100):
-    tmpList = []
+def makeText(source, obj, num=-1):
     currentText = ""
-    while len(currentText) <= num:
-        tmpList.append(source[random.randrange(0, len(source) - 1)])
-        currentText = "".join(tmpList)
-    return currentText.format(name=obj)
+    if num > 0:
+        tmpList = []
+        while len(currentText) <= num:
+            tmpList.append(source[random.randrange(0, len(source) - 1)])
+            currentText = "".join(tmpList)
+        return currentText.format(name=obj)
+    else:
+        currentText = "".join(source)
+        return currentText.format(name=obj)
 def main():
     f=open("fadian.json",encoding='UTF-8')
     source = json.load(f)
-    if args.arguments!=None:
-        print(makeText(source, args.arguments[0], args.arguments[1]))
+    if args.object:
+        name = args.object[0]
+        if args.length:
+            textLength = args.length[0] # 有o有l，随机语句
+        else:
+            textLength = -1             # 有o没l，标准模板
     else:
         name = input("请输入发癫对象：")
-        textLength = int(input("请输入生成文字的长度："))
-        print(makeText(source, name, textLength))
-def str_and_int(x):
-    try:
-        return int(x)
-    except:
-        return x
+        if args.length:
+            textLength = args.length[0] # 没o有l，询问名字
+        else:
+            textLength = int(input("请输入生成文字的长度 (输入 -1 来使用标准模板)："))# 没o没l，完全交互
+    print(makeText(source, name, textLength))
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-a','--arguments',nargs=2,type=str_and_int,help=
-            """在命令行中传入参数，而不是运行中传入参数。
-            第一个参数表示发癫的对象，第二个参数表示字数。"""
-    )
+    parser = argparse.ArgumentParser(description="一个发癫机！")
+    parser.add_argument('-o','--object',nargs=1,help='在命令行传入发癫对象')
+    parser.add_argument('-l','--length',nargs=1,type=int,help='在命令行传入字数 (若不选此项则使用标准模板)')
     args = parser.parse_args()
     main()
